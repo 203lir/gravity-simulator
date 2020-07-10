@@ -2,9 +2,51 @@
 //
 
 #include <iostream>
+#include <math.h>
 
-int main()
-{
+static const int numofplanets = 3;
+
+class planet {
+	private:
+		int mass = 0;
+		double position[2] = {};
+		double velocity[2] = {};
+	public:
+		planet(int mass1, double position1[2], double velocity1[2]) {
+			mass = mass1;
+			position[0] = position1[0];
+			position[1] = position1[1];
+			velocity[0] = velocity1[0];
+			velocity[1] = velocity1[1];
+		}
+		int returnmass() {
+			return mass;
+		}
+		double* returnposition() {
+			return position;
+		}
+		void recalcvelocity(double positions[numofplanets], int masses[numofplanets]) {
+			double force[2] = { 0, 0 };
+			for (int i = 0; i < numofplanets; i++) {
+				double positionofprocessing[2] = *positions[i];
+				double xdistance = positionofprocessing[0] - position[0];
+				double ydistance = positionofprocessing[1] - position[1];
+				double distancesquared = pow(xdistance, 2) + pow(ydistance, 2);
+				double totalgravity = mass * masses[i] / distancesquared;
+				double multiplystuffbythis = totalgravity / sqrt(distancesquared);
+				double xgravity = multiplystuffbythis * xdistance;
+				double ygravity = multiplystuffbythis * ydistance;
+			}
+			velocity[0] += force[0];
+			velocity[1] += force[1];
+		}
+		void recalcposition() {
+			position[0] += velocity[0];
+			position[1] += velocity[1];
+		}
+};
+
+int main() {
     std::cout << "Hello World!\n";
 }
 
