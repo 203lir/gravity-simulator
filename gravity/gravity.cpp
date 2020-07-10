@@ -19,16 +19,21 @@ class planet {
 			velocity[0] = velocity1[0];
 			velocity[1] = velocity1[1];
 		}
+
 		int returnmass() {
 			return mass;
 		}
+
 		double* returnposition() {
 			return position;
 		}
-		void recalcvelocity(double positions[numofplanets], int masses[numofplanets]) {
+
+		void recalcvelocity(double positions[numofplanets][2], int masses[numofplanets]) {
 			double force[2] = { 0, 0 };
 			for (int i = 0; i < numofplanets; i++) {
-				double positionofprocessing[2] = *positions[i];
+				double positionofprocessing[2];
+				positionofprocessing[0] = positions[i][0];
+				positionofprocessing[1] = positions[i][1];
 				double xdistance = positionofprocessing[0] - position[0];
 				double ydistance = positionofprocessing[1] - position[1];
 				double distancesquared = pow(xdistance, 2) + pow(ydistance, 2);
@@ -40,6 +45,7 @@ class planet {
 			velocity[0] += force[0];
 			velocity[1] += force[1];
 		}
+
 		void recalcposition() {
 			position[0] += velocity[0];
 			position[1] += velocity[1];
