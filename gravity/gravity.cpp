@@ -5,6 +5,7 @@
 #include <math.h>
 
 static const int numofplanets = 3;
+static const int time = 1;
 
 class planet {
 	private:
@@ -53,7 +54,38 @@ class planet {
 };
 
 int main() {
-    std::cout << "Hello World!\n";
+	int planet0mass = 1;
+	double planet0position[2] = { 400, 400 };
+	double planet0velocity[2] = { 0, 0 };
+	planet planet0(planet0mass, planet0position, planet0velocity);
+	int planet1mass = 1;
+	double planet1position[2] = { 400, 300 };
+	double planet1velocity[2] = { 0, 0 };
+	planet planet1(planet1mass, planet1position, planet1velocity);
+	int planet2mass = 1;
+	double planet2position[2] = { 400, 200 };
+	double planet2velocity[2] = { 0, 0 };
+	planet planet2(planet2mass, planet2position, planet2velocity);
+
+	for (int i = 0; i <= time * 60; i++) {
+		double planetmasses[numofplanets];
+		planetmasses[0] = planet0mass;
+		planetmasses[1] = planet1mass;
+		planetmasses[2] = planet2mass;
+
+		double planetpositions[numofplanets][2];
+		double* massarray0 = planet0.returnposition();
+		planetpositions[0][0] = massarray0[0];
+		planetpositions[0][1] = massarray0[1];
+		double* massarray1 = planet1.returnposition();
+		planetpositions[1][0] = massarray1[0];
+		planetpositions[1][1] = massarray1[1];
+		double* massarray2 = planet2.returnposition();
+		planetpositions[2][0] = massarray2[0];
+		planetpositions[2][1] = massarray2[1];
+
+		std::cout << planetpositions[0][0] << ", " << planetpositions[0][1] << ",     " << planetpositions[2][0] << ", " << planetpositions[2][1] << "\n";
+	}
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
